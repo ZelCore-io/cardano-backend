@@ -57,8 +57,24 @@ async function getUtxos(req, res) {
   }
 }
 
+async function postTx(req, res) {
+  try {
+    const { body } = req;
+    if (!body) {
+      res.sendStatus(400);
+      return;
+    }
+    const tx = await cardanoTxsService.postTx(body);
+    res.json(tx);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(404);
+  }
+}
+
 module.exports = {
   getTxs,
   getBalances,
   getUtxos,
+  postTx,
 };

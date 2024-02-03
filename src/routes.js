@@ -11,4 +11,8 @@ module.exports = (app) => {
   app.get('/v1/utxos/:address?', (req, res) => {
     cardanoApi.getUtxos(req, res);
   });
+  // post tx
+  app.post('/v1/submittx', (req, res) => {
+    cardanoApi.postTx(req, res);
+  });
 };
