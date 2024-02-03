@@ -1,3 +1,3 @@
-const service = require('./src/services/cardanoTxsService');
+const service = require('./src/services/cardanoBalancesService');
 
-service.getTxsForAddress('addr1qyex876krf63jmu2s0mrt0wjvlqe754ksy0gp7x3v0g92svgyjxzpkd9pspfrcxps6l0s25prxmy7mjqu9vvvc2w4x5sgk8tzj', 50).then((data) => console.log(JSON.stringify(data))).catch(console.error);
+service.getBalancesForAddress('addr1w9qzpelu9hn45pefc0xr4ac4kdxeswq7pndul2vuj59u8tqaxdznu', 50).then((data) => console.log(JSON.stringify(data))).catch(console.error);

@@ -1,4 +1,7 @@
-const cardanoService = require('../services/cardanoTxsService');
+const cardanoTxsService = require('../services/cardanoTxsService');
+const cardanoBalanceService = require('../services/cardanoBalancesService');
+const cardanoUtxoService = require('../services/cardanoUtxosService');
+
 const log = require('../lib/log');
 
 async function getTxs(req, res) {
@@ -14,8 +17,40 @@ async function getTxs(req, res) {
     if (limit > 5000) {
       limit = 5000;
     }
-    const txs = await cardanoService.getTxsFoAddress(address, limit) || [];
+    const txs = await cardanoTxsService.getTxsFoAddress(address, limit) || [];
     res.json(txs);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(404);
+  }
+}
+
+async function getBalances(req, res) {
+  try {
+    let { address } = req.params;
+    address = address || req.query.address;
+    if (!address) {
+      res.sendStatus(400);
+      return;
+    }
+    const txs = await cardanoBalanceService.getBalancesForAddress(address) || {};
+    res.json(txs);
+  } catch (error) {
+    log.error(error);
+    res.sendStatus(404);
+  }
+}
+
+async function getUtxos(req, res) {
+  try {
+    let { address } = req.params;
+    address = address || req.query.address;
+    if (!address) {
+      res.sendStatus(400);
+      return;
+    }
+    const utxos = await cardanoUtxoService.getUtxosForAddress(address) || [];
+    res.json(utxos);
   } catch (error) {
     log.error(error);
     res.sendStatus(404);
@@ -24,4 +59,6 @@ async function getTxs(req, res) {
 
 module.exports = {
   getTxs,
+  getBalances,
+  getUtxos,
 };
