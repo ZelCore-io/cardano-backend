@@ -65,7 +65,7 @@ async function postTx(req, res) {
       res.sendStatus(400);
       return;
     }
-    const tx = await cardanoSubmitTxService.postTx(body);
+    const tx = await cardanoSubmitTxService.submitTx(body);
     res.json(tx);
   } catch (error) {
     log.error(error);
