@@ -1,6 +1,7 @@
 const cardanoTxsService = require('../services/cardanoTxsService');
 const cardanoBalanceService = require('../services/cardanoBalancesService');
 const cardanoUtxoService = require('../services/cardanoUtxosService');
+const cardanoSubmitTxService = require('../services/cardanoSubmitTxService');
 
 const log = require('../lib/log');
 
@@ -64,7 +65,7 @@ async function postTx(req, res) {
       res.sendStatus(400);
       return;
     }
-    const tx = await cardanoTxsService.postTx(body);
+    const tx = await cardanoSubmitTxService.postTx(body);
     res.json(tx);
   } catch (error) {
     log.error(error);
