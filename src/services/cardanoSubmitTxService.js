@@ -1,6 +1,5 @@
 const config = require('config');
 const axios = require('axios');
-const cborg = require('cborg');
 
 const { apiUrl } = config;
 
@@ -11,8 +10,9 @@ async function submitTx(tx) {
     'Content-Type': 'application/cbor',
     Accept: 'application/json',
   };
-  const encoded = cborg.encode(tx);
-  const { data } = await axios.post(txUrl, encoded, {
+
+  const bufferTx = Buffer.from(tx, 'hex');
+  const { data } = await axios.post(txUrl, bufferTx, {
     headers,
     timeout: 30000,
   });
