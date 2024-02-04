@@ -17,7 +17,7 @@ async function getTxs(req, res) {
     if (limit > 5000) {
       limit = 5000;
     }
-    const txs = await cardanoTxsService.getTxsFoAddress(address, limit) || [];
+    const txs = await cardanoTxsService.getTxsForAddress(address, limit) || [];
     res.json(txs);
   } catch (error) {
     log.error(error);
