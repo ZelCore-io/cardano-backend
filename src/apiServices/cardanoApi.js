@@ -72,22 +72,13 @@ async function getUtxos(req, res) {
 
 async function postTx(req, res) {
   try {
-    let body = '';
-    req.on('data', (data) => {
-      body += data;
-    });
-    req.on('end', async () => {
-      try {
-        if (!body) {
-          throw new Error('Invalid request');
-        }
-        const tx = await cardanoSubmitTxService.submitTx(body);
-        res.json(tx);
-      } catch (error) {
-        log.error(error);
-        res.sendStatus(400);
-      }
-    });
+    const { body } = req;
+    if (!body) {
+      res.sendStatus(400);
+      return;
+    }
+    const tx = await cardanoSubmitTxService.submitTx(body);
+    res.json(tx);
   } catch (error) {
     log.error(error);
     res.sendStatus(404);
