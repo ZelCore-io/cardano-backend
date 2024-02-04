@@ -4,7 +4,7 @@ const axios = require('axios');
 const { apiUrl } = config;
 
 async function submitTx(tx) {
-  const txUrl = `${apiUrl}/addresses/tx/submit`;
+  const txUrl = `${apiUrl}/tx/submit`;
   const headers = {
     project_id: config.apiSecret,
     'Content-Type': 'application/cbor',
