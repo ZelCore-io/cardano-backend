@@ -21,7 +21,7 @@ async function getTxs(req, res) {
     const txs = await cardanoTxsService.getTxsForAddress(address, limit) || [];
     res.json(txs);
   } catch (error) {
-    if (error.message === 'The requested component has not been found.') {
+    if (error.response && error.response.data && error.response.data.message === 'The requested component has not been found.') {
       res.json([]);
       return;
     }
@@ -41,7 +41,7 @@ async function getBalances(req, res) {
     const txs = await cardanoBalanceService.getBalancesForAddress(address) || { amount: [] };
     res.json(txs);
   } catch (error) {
-    if (error.message === 'The requested component has not been found.') {
+    if (error.response && error.response.data && error.response.data.message === 'The requested component has not been found.') {
       res.json({ amount: [] });
       return;
     }
@@ -61,7 +61,7 @@ async function getUtxos(req, res) {
     const utxos = await cardanoUtxoService.getUtxosForAddress(address) || [];
     res.json(utxos);
   } catch (error) {
-    if (error.message === 'The requested component has not been found.') {
+    if (error.response && error.response.data && error.response.data.message === 'The requested component has not been found.') {
       res.json([]);
       return;
     }
