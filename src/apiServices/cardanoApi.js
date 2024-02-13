@@ -15,8 +15,8 @@ async function getTxs(req, res) {
     }
     let { limit } = req.params;
     limit = Number(limit || req.query.limit || 50) || 50;
-    if (limit > 5000) {
-      limit = 5000;
+    if (limit > 10000) {
+      limit = 10000;
     }
     const txs = await cardanoTxsService.getTxsForAddress(address, limit) || [];
     res.json(txs);
