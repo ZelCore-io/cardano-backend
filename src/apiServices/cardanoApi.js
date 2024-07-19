@@ -85,6 +85,10 @@ async function postTx(req, res) {
         res.json(tx);
       } catch (error) {
         log.error(error);
+        if (error?.response?.data?.message) {
+          res.status(400).send(error.response.data.message);
+          return;
+        }
         res.sendStatus(400);
       }
     });
