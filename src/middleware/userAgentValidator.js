@@ -9,11 +9,19 @@ const ALLOWED_USER_AGENTS = [
 
 /**
  * Middleware to validate that requests come from authorized sources
- * by checking the User-Agent header
+ * by checking the User-Agent header or ZelCore/ZelID headers
  */
 // eslint-disable-next-line consistent-return
 const validateUserAgent = (req, res, next) => {
   const userAgent = req.get('User-Agent');
+  const zelcoreHeader = req.get('zelcore');
+  const zelidHeader = req.get('zelid');
+
+  // Allow if ZelCore or ZelID header is present
+  if (zelcoreHeader || zelidHeader) {
+    log.info(`Request authorized via ${zelcoreHeader ? 'zelcore' : 'zelid'} header from ${req.ip}`);
+    return next();
+  }
 
   // Check if user agent exists
   if (!userAgent) {
