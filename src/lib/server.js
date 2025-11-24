@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const validateUserAgent = require('../middleware/userAgentValidator');
 
 const nodeEnv = process.env.NODE_ENV;
 
@@ -22,6 +23,7 @@ if (nodeEnv !== 'test') {
 
 app.use(cors());
 app.use(limiter);
+app.use(validateUserAgent); // Validate user agent before processing requests
 require('../routes')(app);
 
 module.exports = app;
