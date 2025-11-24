@@ -4,7 +4,7 @@ const log = require('../lib/log');
 const ALLOWED_USER_AGENTS = [
   /axios\//i, // Matches axios/x.x.x
   /uptime-kuma\//i, // Matches Uptime-Kuma/x.x.x
-  /zelcore\//i, // Matches ZelCore in user agent string
+  /zelcore/i, // Matches ZelCore in user agent string (with or without version slash)
 ];
 
 /**

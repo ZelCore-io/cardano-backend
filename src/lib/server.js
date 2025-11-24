@@ -8,6 +8,10 @@ const nodeEnv = process.env.NODE_ENV;
 
 const app = express();
 
+// Trust proxy - we're behind HAProxy and Cloudflare
+// This allows Express to read the real client IP from X-Forwarded-For header
+app.set('trust proxy', true);
+
 // Rate limiting: 1000 requests per day per IP
 const limiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000, // 24 hours
