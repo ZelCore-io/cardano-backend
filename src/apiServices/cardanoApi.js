@@ -31,6 +31,7 @@ async function getTxs(req, res) {
 }
 
 async function getBalances(req, res) {
+  log.info(`[ENDPOINT HIT] getBalances called for address: ${req.params.address || req.query.address}, IP: ${req.ip}`);
   try {
     let { address } = req.params;
     address = address || req.query.address;
